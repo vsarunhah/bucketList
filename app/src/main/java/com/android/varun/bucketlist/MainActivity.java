@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 DatabaseReference categoryRef = database.getReference(constants.FIREBASE_LOCATION_CATEGORY);
                 categoryRef.push().setValue(editText.getText().toString());
+                editText.setText("");
             }
         });
     }
