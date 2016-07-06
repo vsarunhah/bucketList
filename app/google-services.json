@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "87470120302",
+    "firebase_url": "https://things-to-do-in-life.firebaseio.com",
+    "project_id": "things-to-do-in-life",
+    "storage_bucket": "things-to-do-in-life.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:87470120302:android:4f739c08ac08b942",
+        "android_client_info": {
+          "package_name": "com.android.varun.bucketlist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "87470120302-daq80h7l5gll0lpb868t3nefd8adak9o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7GbtgWnnggiIod3pycMfsk2boDo7xVpw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
