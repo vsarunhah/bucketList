@@ -1,25 +1,20 @@
 package com.android.varun.bucketlist;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.varun.bucketlist.model.BucketCategory;
 import com.firebase.ui.database.FirebaseListAdapter;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     FirebaseDatabase database;
@@ -27,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     Button submit;
     ListView categories;
     FirebaseListAdapter<BucketCategory> mAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +50,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String category = value.getText().toString();
-                String owner = "Anonymous";
-                BucketCategory newCategory = new BucketCategory(owner, category);
-                categoryRef.push().setValue(newCategory);
-                value.setText("");
+                if (!category.equals(null) && !category.equals("") && !category.equals(" ")) {
+                    String owner = "Anonymous";
+                    BucketCategory newCategory = new BucketCategory(owner, category);
+                    categoryRef.push().setValue(newCategory);
+                    value.setText("");
+                } else{
+                    Toast.makeText(MainActivity.this, "Category cannot be empty", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+        categories.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(MainActivity.this, categoryListItem.class);
+                String key = mAdapter.getRef(position).getKey();
+                i.putExtra(constants.KEY_ID,key);
+                startActivity(i);
             }
         });
 
@@ -67,4 +78,5 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         mAdapter.cleanup();
     }
+
 }
