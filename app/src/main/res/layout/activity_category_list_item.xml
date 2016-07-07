@@ -27,7 +27,9 @@
         android:layout_marginBottom="5dp"
         android:layout_marginRight="5dp"
         app:rippleColor="#1882a9"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:id="@+id/addChildButton"/>
+
 
 
 </RelativeLayout>

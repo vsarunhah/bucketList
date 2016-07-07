@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
                     BucketCategory newCategory = new BucketCategory(owner, category);
                     categoryRef.push().setValue(newCategory);
                     value.setText("");
+
                 } else{
                     Toast.makeText(MainActivity.this, "Category cannot be empty", Toast.LENGTH_SHORT).show();
                 }
