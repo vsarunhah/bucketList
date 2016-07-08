@@ -31,8 +31,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@android:drawable/ic_menu_add"
-        android:layout_marginBottom="5dp"
-        android:layout_marginRight="5dp"
+
         app:rippleColor="#1882a9"
         android:clickable="true"
         android:id="@+id/addCategoryButton"
