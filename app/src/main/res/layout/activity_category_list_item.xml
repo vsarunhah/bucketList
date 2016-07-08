@@ -11,8 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/detail_list"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:clickable="true">
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginRight="10dp">-->
 
     </ListView>
 
@@ -25,7 +26,7 @@
         app:rippleColor="#1882a9"
         android:clickable="true"
         android:id="@+id/addChildButton"
-        android:layout_gravity="right|bottom" />
+        android:layout_gravity="end|bottom" />
 
 
 </FrameLayout>

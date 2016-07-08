@@ -26,6 +26,7 @@ public class categoryListItem extends AppCompatActivity {
     ListView lv;
     FirebaseListAdapter<BucketCategoryItem> mAdapter;
     FirebaseDatabase database;
+    Integer checkedForId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,7 @@ public class categoryListItem extends AppCompatActivity {
                         String id = getIntent().getStringExtra(constants.KEY_ID);
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
                         DatabaseReference ref = database.getReference(constants.FIREBASE_LOCATION_ITEMS).child(id);
-                        ref.push().setValue(new BucketCategoryItem(input.getText().toString(), "Anonymous", 10));
+                        ref.push().setValue(new BucketCategoryItem(input.getText().toString(), "Anonymous", 0));
                     }
                 });
 
