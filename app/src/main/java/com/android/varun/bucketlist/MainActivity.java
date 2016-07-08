@@ -1,6 +1,9 @@
 package com.android.varun.bucketlist;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,8 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
     FirebaseDatabase database;
-    EditText value;
-    Button submit;
+    FloatingActionButton fab;
     ListView categories;
     FirebaseListAdapter<BucketCategory> mAdapter;
 
@@ -28,12 +30,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        value = (EditText) findViewById(R.id.nodeEntry);
-        submit = (Button) findViewById(R.id.enterNode);
         categories = (ListView) findViewById(R.id.categoryShow);
+        fab = (FloatingActionButton) findViewById(R.id.addCategoryButton);
 
         database = FirebaseDatabase.getInstance();
         final DatabaseReference categoryRef = database.getReference(constants.FIREBASE_LOCATION_CATEGORY);
+        setTitle("Categories");
 
         database = FirebaseDatabase.getInstance();
 
@@ -46,22 +48,39 @@ public class MainActivity extends AppCompatActivity {
         };
         categories.setAdapter(mAdapter);
 
-        submit.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String category = value.getText().toString();
-                if (!category.equals(null) && !category.equals("") && !category.equals(" ")) {
-                    String owner = "Anonymous";
-                    BucketCategory newCategory = new BucketCategory(owner, category);
-                    categoryRef.push().setValue(newCategory);
-                    value.setText("");
+                final AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
 
-                } else{
-                    Toast.makeText(MainActivity.this, "Category cannot be empty", Toast.LENGTH_SHORT).show();
+                alert.setTitle("Enter a category");
+
+                final EditText input = new EditText(MainActivity.this);
+                alert.setView(input);
+
+                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        String category = input.getText().toString();
+                        if (!category.equals(null) && !category.equals("") && !category.equals(" ")) {
+                            String owner = "Anonymous";
+                            BucketCategory newCategory = new BucketCategory(owner, category);
+                            categoryRef.push().setValue(newCategory);
+
+                        } else{
+                            Toast.makeText(MainActivity.this, "Category cannot be empty", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {public void onClick(DialogInterface dialog, int whichButton)
+                {
                 }
-
+                });
+                alert.show();
             }
         });
+
+
 
         categories.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -69,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(MainActivity.this, categoryListItem.class);
                 String key = mAdapter.getRef(position).getKey();
                 i.putExtra(constants.KEY_ID,key);
+                i.putExtra(getTitle().toString(), "title");
                 startActivity(i);
             }
         });
